@@ -9,61 +9,41 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'printTest';
   print() {
-    const printContent = `
+    const content = `
       <html>
         <head>
-          <title>Print Preview</title>
           <style>
             body {
-              font-family: Arial, sans-serif;
-              padding: 40px;
+              font-family: sans-serif;
               text-align: center;
-              color: #333;
-              background-color: #f9f9f9;
+              padding: 40px;
             }
-            h1 {
-              color: #d9534f;
-              margin-bottom: 20px;
-            }
-            p {
-              font-size: 18px;
-            }
+            h1 { color: red; }
+            p { font-size: 18px; }
           </style>
         </head>
         <body>
-          <h1>Hi! I'm Chrome Print Popup</h1>
-          <p>This is what I wanted to say 😎</p>
-          <p>Thanks for printing me!</p>
+          <h1>Hello from Print</h1>
+          <p>This is your message 😎</p>
         </body>
       </html>
     `;
 
-    const iframe = document.createElement('iframe');
-    iframe.style.position = 'fixed';
-    iframe.style.right = '0';
-    iframe.style.bottom = '0';
-    iframe.style.width = '0';
-    iframe.style.height = '0';
-    iframe.style.border = '0';
-    document.body.appendChild(iframe);
+    const frame = document.createElement('iframe');
+    frame.style.display = 'none';
+    document.body.appendChild(frame);
 
-    const doc = iframe.contentWindow || iframe.contentDocument;
+    const doc = frame.contentWindow?.document;
     if (doc) {
-      const docContent = 'document' in doc ? doc.document : doc;
-      docContent.open();
-      docContent.write(printContent);
-      docContent.close();
+      doc.open();
+      doc.write(content);
+      doc.close();
 
       setTimeout(() => {
-        (docContent as Document).defaultView?.focus();
-        (docContent as Document).defaultView?.print();
-
-        setTimeout(() => {
-          document.body.removeChild(iframe);
-        }, 1000);
-      }, 500);
+        frame.contentWindow?.focus();
+        frame.contentWindow?.print();
+        setTimeout(() => document.body.removeChild(frame), 500);
+      }, 300);
     }
   }
-  
-
 }
