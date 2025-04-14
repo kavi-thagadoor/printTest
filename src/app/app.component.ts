@@ -8,6 +8,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'printTest';
+
   print() {
     const content = `
       <html>
@@ -24,7 +25,6 @@ export class AppComponent {
         </head>
         <body>
           <h1>Hello from Print</h1>
-          <p>This is your message 😎</p>
         </body>
       </html>
     `;
