@@ -26,6 +26,8 @@ export class AppComponent {
         <body>
           <h1>Hello from Print</h1>
           <p>This is your message 😎</p>
+          <button onclick="window.close()">Close</button>
+
           <script>
             window.onload = function() {
               window.print();
