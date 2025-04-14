@@ -25,25 +25,22 @@ export class AppComponent {
         </head>
         <body>
           <h1>Hello from Print</h1>
+          <p>This is your message 😎</p>
+          <script>
+            window.onload = function() {
+              window.print();
+            }
+          </script>
         </body>
       </html>
     `;
-
-    const frame = document.createElement('iframe');
-    frame.style.display = 'none';
-    document.body.appendChild(frame);
-
-    const doc = frame.contentWindow?.document;
-    if (doc) {
-      doc.open();
-      doc.write(content);
-      doc.close();
-
-      setTimeout(() => {
-        frame.contentWindow?.focus();
-        frame.contentWindow?.print();
-        setTimeout(() => document.body.removeChild(frame), 500);
-      }, 300);
+  
+    const printWindow = window.open('', '_blank', 'width=600,height=600');
+    if (printWindow) {
+      printWindow.document.open();
+      printWindow.document.write(content);
+      printWindow.document.close();
     }
   }
+  
 }
