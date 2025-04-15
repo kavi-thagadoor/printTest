@@ -9,6 +9,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'printTest';
 
+ 
   print() {
     const content = `
       <html>
@@ -27,10 +28,13 @@ export class AppComponent {
           <h1>Hello from Print</h1>
           <p>This is your message 😎</p>
           <script>
-            window.onload = function() {
-              window.print();
-            }
-          </script>
+          window.onload = function() {
+            window.print();
+          };
+          window.onafterprint = function() {
+            window.close();
+          };
+        </script>
         </body>
       </html>
     `;
