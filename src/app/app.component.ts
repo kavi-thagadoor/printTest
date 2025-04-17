@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import axios from 'axios';
 
 @Component({
   selector: 'app-root',
@@ -48,5 +49,23 @@ export class AppComponent {
     doc.close();
   }
   
+  prints() {
+    const jsonData = {
+      message: 'Welcome, Lazybill! Finally, you has found me!',
+      status: 'success'
+    };
   
-}
+    const encodedData = encodeURIComponent(JSON.stringify(jsonData));
+    const url = `http://localhost:3000/print?json=${encodedData}`;
+  
+    axios.get(url)
+      .then((response: { data: any; }) => {
+        console.log('Print successful:', response.data);
+      })
+      .catch((error: any) => {
+        console.error('Print failed:', error);
+      });
+  }
+  
+  }
+  
